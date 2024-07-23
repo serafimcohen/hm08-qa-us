@@ -24,7 +24,7 @@ module.exports = {
     supportivePlanCardActive: '//div[@class="tcard active"]//div[starts-with(text(), "Supportive")]',
     submitButton: '//button[starts-with(text(), "Link")]',
     addIceCreamButton: '//div[starts-with(text(), "Ice cream")]/..//div[@class="r-counter"]//div[@class="counter"]//div[@class="counter-plus"]',
-    closeAddCardButton: '//button[@class="close-button section-close"]',
+    closeAddCardButton: '[class="close-button section-close"]',
 
     // Switches 
     blanketAndHandkerchiefsSwitch: '//div[starts-with(text(), "Blanket and handkerchiefs")]/..//div[@class="r-sw"]',
