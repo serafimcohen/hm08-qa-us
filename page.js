@@ -11,6 +11,8 @@ module.exports = {
     // Labels
     messageToTheDriverLabel: '//label[starts-with(text(), "Message to the driver...")]',
     iceCreamCountLabel: '//div[starts-with(text(), "Ice cream")]/..//div[@class="r-counter"]//div[@class="counter"]//div[@class="counter-value"]',
+    orderHeaderTime: '.order-header-time',
+    theDriverWillArriveLabel: '//div[starts-with(text(), "The driver will arrive ")]',
 
     // Buttons
     callATaxiButton: 'button=Call a taxi',
@@ -24,7 +26,8 @@ module.exports = {
     supportivePlanCardActive: '//div[@class="tcard active"]//div[starts-with(text(), "Supportive")]',
     submitButton: '//button[starts-with(text(), "Link")]',
     addIceCreamButton: '//div[starts-with(text(), "Ice cream")]/..//div[@class="r-counter"]//div[@class="counter"]//div[@class="counter-plus"]',
-    closeAddCardButton: '[class="close-button section-close"]',
+    closeAddCardButton: '.payment-picker .section.active .close-button',
+    orderButton: '.smart-button-wrapper',
 
     // Switches 
     blanketAndHandkerchiefsSwitch: '//div[starts-with(text(), "Blanket and handkerchiefs")]/..//div[@class="r-sw"]',
@@ -36,6 +39,7 @@ module.exports = {
 
     // Modals
     phoneNumberModal: '.modal',
+    orderBody: '.order-body',
     
 
     // Functions
@@ -102,6 +106,21 @@ module.exports = {
         await submitButton.waitForDisplayed();
         await submitButton.click();
     },
+    closeCardModal: async function() {
+        const closeAddCardButton = await $(this.closeAddCardButton);
+        await closeAddCardButton.waitForDisplayed();
+        await closeAddCardButton.click();
+    },
+    selectBlanketsAndHandkerchief: async function() {
+        const blanketAndHandkerchiefsSwitch = await $(this.blanketAndHandkerchiefsSwitch);
+        await blanketAndHandkerchiefsSwitch.waitForDisplayed();
+        await blanketAndHandkerchiefsSwitch.click();
+    },
+    clickOrderButton: async function() {
+        const orderButton = await $(this.orderButton);
+        await orderButton.waitForDisplayed();
+        await orderButton.click();
+    },
     addIceCream : async function(count) {
         const addIceCreamButton = await $(this.addIceCreamButton);
         await addIceCreamButton.waitForDisplayed();
@@ -109,6 +128,15 @@ module.exports = {
         for (let i = 0; i < count; i++) {
             await addIceCreamButton.click();
         }
+    },
+    getIceCreamCount : async function() {
+        const iceCreamCountLabel = await $(this.iceCreamCountLabel);
+        iceCreamCountLabel.waitForDisplayed();
+        return Number(await iceCreamCountLabel.getText());
+    },
+    isBlanketAndHandkerchiefsSwitchInputChecked : async function() {
+        const blanketAndHandkerchiefsSwitchInput = await $(this.blanketAndHandkerchiefsSwitchInput);
+        return await blanketAndHandkerchiefsSwitchInput.isSelected();
     },
     submitPhoneNumber: async function(phoneNumber) {
         await this.fillPhoneNumber(phoneNumber);

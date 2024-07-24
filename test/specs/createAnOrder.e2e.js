@@ -7,7 +7,6 @@ const message = 'Bring me a JavaScript studybook, please';
 const iceCreamCount = 2;
 
 describe('Create an order', () => {
-    /*
     it('should set addresses correctly', async () => {
         await browser.url(`/`);
         await page.fillAddresses(fromAddress, toAddress);
@@ -74,15 +73,12 @@ describe('Create an order', () => {
         if (!(await page.isSupportivePlanSelected())) {
             await page.selectSupportivePlan();
         }
+        
+        if (!(await page.isBlanketAndHandkerchiefsSwitchInputChecked())) {
+            await page.selectBlanketsAndHandkerchief();
+        }
 
-        const blanketAndHandkerchiefsSwitch = await $(page.blanketAndHandkerchiefsSwitch);
-        await blanketAndHandkerchiefsSwitch.waitForDisplayed();
-        await blanketAndHandkerchiefsSwitch.click();
-
-        const blanketAndHandkerchiefsSwitchInput = await $(page.blanketAndHandkerchiefsSwitchInput);
-        //await blanketAndHandkerchiefsSwitchInput.waitForDisplayed();
-
-        await expect(blanketAndHandkerchiefsSwitchInput).toBeChecked();
+        await expect(await page.isBlanketAndHandkerchiefsSwitchInputChecked()).toBe(true);
     })
 
     it('should add two ice creams', async () => {
@@ -94,17 +90,15 @@ describe('Create an order', () => {
             await page.selectSupportivePlan();
         }
 
-        await page.addIceCream(iceCreamCount);
+        if (await page.getIceCreamCount() === 0) {
+            await page.addIceCream(iceCreamCount)
+        };
 
-        const iceCreamCountLabel = await $(page.iceCreamCountLabel);
-        iceCreamCountLabel.waitForDisplayed();
-        await expect(Number(await iceCreamCountLabel.getText())).toBe(iceCreamCount);
+        await expect(await page.getIceCreamCount()).toBe(iceCreamCount);
     })
-   */
 
     it('car search modal should appear', async () => {
         await browser.url(`/`)
-        await browser.url(`/`);
         await page.fillAddresses(fromAddress, toAddress);
         await page.callATaxi();
 
@@ -114,19 +108,64 @@ describe('Create an order', () => {
 
         const phoneNumber = helper.getPhoneNumber("+1");
         await page.submitPhoneNumber(phoneNumber);
-
         await page.addCard(123400004321, 12);
-        const closeAddCardButton = await $(page.closeAddCardButton);
-        //await closeAddCardButton.waitForDisplayed();
-        await closeAddCardButton.click();
+        await page.closeCardModal()
+        await page.fillMessageToTheDriver(message);    
+        
+        if (!(await page.isBlanketAndHandkerchiefsSwitchInputChecked())) {
+            await page.selectBlanketsAndHandkerchief();
+        }
+        
+        if (await page.getIceCreamCount() === 0) {
+            await page.addIceCream(iceCreamCount)
+        };
 
-        await page.fillMessageToTheDriver(message);
+        await page.clickOrderButton();
 
-        const blanketAndHandkerchiefsSwitch = await $(page.blanketAndHandkerchiefsSwitch);
-        await blanketAndHandkerchiefsSwitch.waitForDisplayed();
-        await blanketAndHandkerchiefsSwitch.click();
+        const orderBody = await $(page.orderBody);
+        await orderBody.waitForDisplayed();
+        
+        expect(orderBody).toBeDisplayed();
+    })
+    
+    it('driver info should appear', async () => {
+        await browser.url(`/`)
+        await page.fillAddresses(fromAddress, toAddress);
+        await page.callATaxi();
 
-        await page.addIceCream(iceCreamCount);
+        if (!(await page.isSupportivePlanSelected())) {
+            await page.selectSupportivePlan();
+        }
+
+        const phoneNumber = helper.getPhoneNumber("+1");
+        await page.submitPhoneNumber(phoneNumber);
+        await page.addCard(123400004321, 12);
+        await page.closeCardModal()
+        await page.fillMessageToTheDriver(message);    
+        
+        if (!(await page.isBlanketAndHandkerchiefsSwitchInputChecked())) {
+            await page.selectBlanketsAndHandkerchief();
+        }
+        
+        if (await page.getIceCreamCount() === 0) {
+            await page.addIceCream(iceCreamCount)
+        };
+
+        await page.clickOrderButton();
+
+        const orderBody = await $(page.orderBody);
+        await orderBody.waitForDisplayed();
+        
+        const orderHeaderTime = await $(page.orderHeaderTime);
+
+        await orderHeaderTime.waitUntil(async function() {
+            return (await this.getText()) === "00:01";
+        }, {timeout: 60000});
+
+        const theDriverWillArriveLabel = await $(page.theDriverWillArriveLabel);
+        theDriverWillArriveLabel.waitForDisplayed();
+
+        expect(theDriverWillArriveLabel).toBeDisplayed();
     })
 })
 
