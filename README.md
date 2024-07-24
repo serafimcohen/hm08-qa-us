@@ -1,3 +1,28 @@
+# Sprint 7 project
+
+Project name: 
+hm08-qa-us
+
+Project description: 
+The project has been completed to test the following features of Urban Routes web user interface:
+
+- Setting the address
+- Selecting Supportive plan
+- Filling in the phone number
+- Adding a credit card
+- Writing a message for the driver
+- Ordering a Blanket and handkerchiefs
+- Ordering 2 Ice creams
+- The car search modal appears
+- Waiting for the driver info to appear
+
+Tests has been created using Node.js and WebDriverIO. 
+Follow these steps to run the tests:
+1) Open Terminal and move to project directory.
+2) Initialize npm by running "npm init --yes"
+3) Run the Urban Grocers testing environment, copy the URL and update variable "baseUrl" in wdio.conf.js.
+4) Run the tests using "npm run wdio"
+
 # Known issues
 
 ## Some users may face an error associated with chromedriver. To perform test with Firefox, please, follow these steps:
