@@ -25,13 +25,9 @@
     ],
 ```
     - Run your testing environment and add it's URL to 'baseURL'. This part of wdio.conf.js should look like:
-```
-   baseUrl: 'YOUR_TESTING_ENVIRONMENT_URL',
-```
+   `baseUrl: 'YOUR_TESTING_ENVIRONMENT_URL',`
     - Add 'intercept' to 'services'. This part of wdio.conf.js should look like:
-```
-   services: ['firefox-profile', 'intercept'],
-```
+    `services: ['firefox-profile', 'intercept'],`
     - Add 'maxInstances: 5,' and 'acceptInsecureCerts: true,' to 'capabilities'. This part of wdio.conf.js should look like:
 ```
     capabilities: [{
