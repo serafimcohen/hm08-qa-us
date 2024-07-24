@@ -34,3 +34,7 @@ Some users may face an error associated with chromedriver. To perform test with 
     }],
 4.5) Save wdio.conf.js.
 
+'moz:firefoxOptions': {
+           	args: ['-headless']
+        }
+
