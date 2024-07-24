@@ -78,6 +78,7 @@ Follow these steps to run the tests:
     ERROR webdriver: Request failed with status 500 due to unknown error: Process unexpectedly closed with status 1
 
     To fix it, make sure that you specified headless mode in wdio.conf.js:
+    If you use Firefox:
 ```
         capabilities: [{
             maxInstances: 5,
@@ -85,6 +86,18 @@ Follow these steps to run the tests:
             acceptInsecureCerts: true,
             'moz:firefoxOptions': {
                 args: ['-headless']
+            }
+        }],
+```
+
+    If you use Chrome:
+```
+        capabilities: [{
+            maxInstances: 5,
+            browserName: 'firefox',
+            acceptInsecureCerts: true,
+            'goog:chromeOptions': {
+                args: ['headless', 'disable-gpu']
             }
         }],
 ```

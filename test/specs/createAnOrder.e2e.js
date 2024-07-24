@@ -7,15 +7,13 @@ const message = 'Bring me a JavaScript studybook, please';
 const iceCreamCount = 2;
 
 describe('Create an order', () => {
+    
     it('should set addresses correctly', async () => {
         await browser.url(`/`);
         await page.fillAddresses(fromAddress, toAddress);
-
-        const fromFieldValue = await $(page.fromField).getValue();
-        const toFieldValue = await $(page.toField).getValue();
-
-        const isFilledCorrectly = fromFieldValue === fromAddress && toFieldValue === toAddress;
-        await expect(isFilledCorrectly).toBe(true);
+        
+        await expect(await $(page.fromField)).toHaveValue(fromAddress);
+        await expect(await $(page.toField)).toHaveValue(toAddress);
     })
 
     it('should select supportive plan', async () => {
@@ -157,13 +155,20 @@ describe('Create an order', () => {
         await orderBody.waitForDisplayed();
         
         const orderHeaderTime = await $(page.orderHeaderTime);
+        await orderHeaderTime.waitForDisplayed();
+
+        const waitingTimeText = await orderHeaderTime.getText();
+        const watingTimeTextArray = waitingTimeText.split(':');
+        const watingTimeMinutes = Number(watingTimeTextArray[0]);
+        const watingTimeSeconds = Number(watingTimeTextArray[1]);
+        const totalWatingTimeMilliseconds = (watingTimeMinutes * 60 + watingTimeSeconds) * 1000;
 
         await orderHeaderTime.waitUntil(async function() {
-            return (await this.getText()) === "00:01";
-        }, {timeout: 60000});
+                return (await this.getText()) === "00:01";
+            }, {timeout: totalWatingTimeMilliseconds});
 
         const theDriverWillArriveLabel = await $(page.theDriverWillArriveLabel);
-        theDriverWillArriveLabel.waitForDisplayed();
+        await theDriverWillArriveLabel.waitForDisplayed();
 
         await expect(theDriverWillArriveLabel).toBeDisplayed();
     })
