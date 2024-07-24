@@ -78,8 +78,9 @@ Follow these steps to run the tests:
     ERROR webdriver: Request failed with status 500 due to unknown error: Process unexpectedly closed with status 1
 
     To fix it, make sure that you specified headless mode in wdio.conf.js:
-    If you use Firefox:
-```
+    - If you use Firefox:
+
+    ```
         capabilities: [{
             maxInstances: 5,
             browserName: 'firefox',
@@ -88,19 +89,20 @@ Follow these steps to run the tests:
                 args: ['-headless']
             }
         }],
-```
+    ```
 
-    If you use Chrome:
-```
+    - If you use Chrome:
+
+    ```
         capabilities: [{
             maxInstances: 5,
-            browserName: 'firefox',
+            browserName: 'chrome',
             acceptInsecureCerts: true,
             'goog:chromeOptions': {
                 args: ['headless', 'disable-gpu']
             }
         }],
-```
+    ```
 
 2.  Mixed spaces and tabs  no-mixed-spaces-and-tab
 
