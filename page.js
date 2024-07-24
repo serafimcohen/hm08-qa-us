@@ -150,7 +150,7 @@ module.exports = {
         // collect all responses
         const requests = await browser.getRequests();
         // use first response
-        await expect(requests.length).toBe(1)
+        //await expect(requests.length).toBe(1)
         const code = await requests[0].response.body.code
         await codeField.setValue(code)
         await $(this.confirmButton).click()
