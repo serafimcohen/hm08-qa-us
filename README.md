@@ -19,32 +19,32 @@
     - Do you want me to run `npm install`? - Yes
 4. Open wdio.conf.js in root directory.
     - Add following line to 'specs': './test/specs/**/*.js'. This part of wdio.conf.js should look like:
-```
+    ```
     specs: [
         './test/specs/**/*.js'
     ],
-```
+    ```
 
     - Run your testing environment and add it's URL to 'baseURL'. This part of wdio.conf.js should look like:
 
-```
+    ```
    baseUrl: 'YOUR_TESTING_ENVIRONMENT_URL',
-```
+    ```
 
     - Add 'intercept' to 'services'. This part of wdio.conf.js should look like:
 
-```
+    ```
    services: ['firefox-profile', 'intercept'],
-```
+    ```
 
     - Add 'maxInstances: 5,' and 'acceptInsecureCerts: true,' to 'capabilities'. This part of wdio.conf.js should look like:
-```
+    ```
     capabilities: [{
         maxInstances: 5,
         browserName: 'firefox',
         acceptInsecureCerts: true,
     }],
-```
+    ```
     - Save wdio.conf.js.
 
 ## When you push the project to GitHub you may see following errors:
