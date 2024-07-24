@@ -92,7 +92,7 @@ describe('Create an order', () => {
 
         if (await page.getIceCreamCount() === 0) {
             await page.addIceCream(iceCreamCount)
-        };
+        }
 
         await expect(await page.getIceCreamCount()).toBe(iceCreamCount);
     })
@@ -118,14 +118,14 @@ describe('Create an order', () => {
         
         if (await page.getIceCreamCount() === 0) {
             await page.addIceCream(iceCreamCount)
-        };
+        }
 
         await page.clickOrderButton();
 
         const orderBody = await $(page.orderBody);
         await orderBody.waitForDisplayed();
         
-        expect(orderBody).toBeDisplayed();
+        await expect(orderBody).toBeDisplayed();
     })
     
     it('driver info should appear', async () => {
@@ -149,7 +149,7 @@ describe('Create an order', () => {
         
         if (await page.getIceCreamCount() === 0) {
             await page.addIceCream(iceCreamCount)
-        };
+        }
 
         await page.clickOrderButton();
 
@@ -165,7 +165,7 @@ describe('Create an order', () => {
         const theDriverWillArriveLabel = await $(page.theDriverWillArriveLabel);
         theDriverWillArriveLabel.waitForDisplayed();
 
-        expect(theDriverWillArriveLabel).toBeDisplayed();
+        await expect(theDriverWillArriveLabel).toBeDisplayed();
     })
 })
 
