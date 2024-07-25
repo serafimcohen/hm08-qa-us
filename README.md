@@ -1,4 +1,4 @@
-# Sprint 7 project
+# Sprint 8 project
 
 Project name: 
 hm08-qa-us
@@ -20,7 +20,7 @@ Tests has been created using Node.js and WebDriverIO.
 Follow these steps to run the tests:
 1) Open Terminal and move to project directory.
 2) Initialize npm by running "npm init --yes"
-3) Run the Urban Grocers testing environment, copy the URL and update variable "baseUrl" in wdio.conf.js.
+3) Run the Urban Routes testing environment, copy the URL and update variable "baseUrl" in wdio.conf.js.
 4) Run the tests using "npm run wdio"
 
 # Known issues

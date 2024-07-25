@@ -5,9 +5,10 @@ const fromAddress = 'East 2nd Street, 601';
 const toAddress = '1300 1st St';
 const message = 'Bring me a JavaScript studybook, please';
 const iceCreamCount = 2;
+const cardNumber = 123400004321;
+const cvvCode =  12;
 
 describe('Create an order', () => {
-    
     it('should set addresses correctly', async () => {
         await browser.url(`/`);
         await page.fillAddresses(fromAddress, toAddress);
@@ -43,7 +44,7 @@ describe('Create an order', () => {
         await browser.url(`/`);
         await page.fillAddresses(fromAddress, toAddress);
         await page.callATaxi();
-        await page.addCard(123400004321, 12);
+        await page.addCard(cardNumber, cvvCode);
 
         const cardRow = await $(page.cardRow);
         await cardRow.waitForDisplayed();
@@ -106,7 +107,7 @@ describe('Create an order', () => {
 
         const phoneNumber = helper.getPhoneNumber("+1");
         await page.submitPhoneNumber(phoneNumber);
-        await page.addCard(123400004321, 12);
+        await page.addCard(cardNumber, cvvCode);
         await page.closeCardModal()
         await page.fillMessageToTheDriver(message);    
         
@@ -137,7 +138,7 @@ describe('Create an order', () => {
 
         const phoneNumber = helper.getPhoneNumber("+1");
         await page.submitPhoneNumber(phoneNumber);
-        await page.addCard(123400004321, 12);
+        await page.addCard(cardNumber, cvvCode);
         await page.closeCardModal()
         await page.fillMessageToTheDriver(message);    
         
@@ -163,9 +164,7 @@ describe('Create an order', () => {
         const watingTimeSeconds = Number(watingTimeTextArray[1]);
         const totalWatingTimeMilliseconds = (watingTimeMinutes * 60 + watingTimeSeconds) * 1000;
 
-        await orderHeaderTime.waitUntil(async function() {
-                return (await this.getText()) === "00:01";
-            }, {timeout: totalWatingTimeMilliseconds});
+        await browser.pause(totalWatingTimeMilliseconds);
 
         const theDriverWillArriveLabel = await $(page.theDriverWillArriveLabel);
         await theDriverWillArriveLabel.waitForDisplayed();
