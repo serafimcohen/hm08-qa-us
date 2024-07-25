@@ -164,7 +164,9 @@ describe('Create an order', () => {
         const watingTimeSeconds = Number(watingTimeTextArray[1]);
         const totalWatingTimeMilliseconds = (watingTimeMinutes * 60 + watingTimeSeconds) * 1000;
 
-        await browser.pause(totalWatingTimeMilliseconds);
+        await orderHeaderTime.waitUntil(async function() {
+                return (await this.getText()) === "00:01";}, 
+            {timeout: totalWatingTimeMilliseconds});
 
         const theDriverWillArriveLabel = await $(page.theDriverWillArriveLabel);
         await theDriverWillArriveLabel.waitForDisplayed();
